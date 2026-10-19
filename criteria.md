@@ -53,60 +53,60 @@ whether you hit them:
 
 ## 1.
 
-<!-- Your criterion. It must name a number. -->
 
+Overall accuracy on the test split is at least 0.60.
 
 
 **Why this target:**
 
-
-
+ With three labels, a random guesser gets about 33%. I want the model to clearly beat chance without setting a bar my small dataset can't reliably hit.
 ---
 
 ## 2.
 
-<!-- Your criterion. -->
 
+ Every label's F1 on the test split is at least 0.50.
 
 
 **Why this target:**
 
+My smallest label has about 40 examples, so about 6 land in the test split. A per-label F1 computed on that few examples swings a lot between seeds, so I set a looser bar than my overall target.
 
 
 ---
 
 ## 3.
 
-<!-- Your criterion. -->
 
+The largest label is at most 70% of the rows in `labels.csv`.
 
 
 **Why this target:**
 
-
+A file dominated by one label trains a model that mostly guesses that label. The assignment sets 70% as the cap, and with three labels it still leaves the other two a real share.
 
 ---
 
 ## 4.
 
-<!-- Your criterion. -->
 
 
+ On the 20 posts I labeled cold, my second pass agrees with my first on at least 80% of labels.
 
 **Why this target:**
 
-
+Labeling is only as reliable as the labeler, and I'm the only labeler. 80% allows for a few hard calls while still showing my definitions hold up.
 
 ---
 
 ## 5.
 
-<!-- Your criterion. -->
 
+Each label has at least 6 examples in the test split.
 
 
 **Why this target:**
-
+With 6 or more examples, one wrong prediction moves a label's score less than 15 points. Below that, the F1 scores are too noisy to read.
 
 
 ---
