@@ -75,6 +75,18 @@
 **Example 2:**https://www.reddit.com/r/personalfinance/comments/1mduljg/needing_general_money_advice/
 >I'm 2000$ (one card) in credit card debt, totally maxed out.
 
+### `Venting`
+
+**Definition:** Describes feelings about money and doesn't ask a question.
+
+
+**Example 1:** https://www.reddit.com/r/personalfinance/comments/1286ao5/age_32_57k_in_student_loan_debt_should_i_pay_it/
+> This is causing me tons of anxiety and I'm not even the borrower.
+
+**Example 2:**https://www.reddit.com/r/personalfinance/comments/1t17vz4/i_cant_stop_thinking_about_things_per_hour/
+>I guess I'm just venting.
+    
+
 ### The hardest boundary
 
 **Which two labels:** `specific_question` and `general_question`, when a post asks a question that has an underlying general topic but includes the poster's own numbers.
@@ -93,47 +105,41 @@ If the post asks a question, check for the poster's own numbers. With numbers, i
 <!-- Where you collected from, how you labelled, your counts, and three hard
      cases. -->
 
-**Where the posts came from:**
+I collected posts from r/personalfinance (Reddit), pulling the text of the post titles and bodies into `labels.csv`.
+
+**Labels:**
+`specific_question`   needs a tailored answer based on the poster's own numbers/situation (e.g. "given these balances, should I pay off X or invest in Y")
+ `general_question` a real question, but answerable without the poster's specific figures (process, legality, "is this normal" questions)
+-`venting` — no real question being asked, just a personal story, PSA, or emotional post
+
 
 **How I labelled them:** <!-- Cold first? Pre-labelled with AI and corrected?
 Say so plainly — the disclosure is required, not penalised. -->
 
-**Counts per label:**
+ I hand labeled the first 20 posts cold, with no AI assistance, as a baseline check on my own judgment before defining any process. For the remaining  192 posts, I gave Claude my label definitions (specific_question: needs a tailored answer based on the poster’s own numbers/situation; general_question: a real question, but answerable without the poster’s specific figures, process, legality, or “is this normal” questions; venting: no real question being asked, just a personal story, PSA, or emotional post) and had it produce a first pass. I then read every single AI-labeled row myself and corrected any I disagreed with before committing. Rows labeled this way are marked ai assisted in the note column. Two posts (the subreddit’s sticky “welcome” and weekly “help and victory” threads) were excluded entirely as non-posts, leaving 212 labeled rows: 102 general_question (48%), 89 specific_question (42%), 21 venting (10%), no label above 70%.
 
-| Label | Count | Share |
+
+*Counts (212 labeled rows):**
+| Label | Count | % |
 |---|---|---|
-|  |  |  |
-|  |  |  |
-|  |  |  |
-| **Total** |  | 100% |
+| general_question | 102 | 48% |
+| specific_question | 89 | 42% |
+| venting | 21 | 10% |
+
+No label exceeds 70%.
 
 **Three hard cases**
 
 <!-- Any post that made you pause: what it was, which two labels it could have
      been, and what you chose. These are worth more than the easy 190. -->
+**Three hard cases:**
 
-**1.**
-> *The post:*
->
-> *Could have been:*
->
-> *I chose, because:*
+1. **"I feel so behind financially"** (31F, $12/hr, no debt) — has real numbers and asks for advice, but ends *"I suppose I am just venting."* I labeled it `venting` on the strength of that line, over `general_question`.
 
-**2.**
-> *The post:*
->
-> *Could have been:*
->
-> *I chose, because:*
+2. **"Watched my company stock sink 50%"** — asks a real financial question (sell/hold/diversify) but spends more of the post on emotional distress ("how did you pull yourself out of that dark headspace?"). I went with `general_question` since the financial ask doesn't need the poster's specific numbers to answer, but `venting` was a close second.
 
-**3.**
-> *The post:*
->
-> *Could have been:*
->
-> *I chose, because:*
+3. **"I'm an heir to a broke aunt"** — a long, detailed personal story (dying aunt, ~$500/month mortgage, unknown credit card debt) that lands on a general legal question: *"do heirs inherit credit card debt?"* I labeled it `general_question` since the answer doesn't depend on her specific numbers, though her numbers are clearly what's driving the question.
 
----
 
 ## The Training Run
 
@@ -149,7 +155,7 @@ Say so plainly — the disclosure is required, not penalised. -->
 split. If a label had fewer than about 8 in test, say so — it explains a lot
 of next unit's variance. -->
 
-
+Device: CPU, torch 2.14.1+cpu
 
 ---
 
@@ -164,15 +170,17 @@ of next unit's variance. -->
 
 **Moment 1**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:*Pre-labeling for the remaining ~192 posts in `to_label.txt`, using my label definitions (specific_question / general_question / venting) and decision rule (own numbers + question → specific; question with no own numbers → general; no question → venting).
+- *What came back:*  A Python dict mapping row index → label, formatted to drop directly into my `parse_posts.py`. 
+
+- *What I changed:* I read every AI-labeled row against the original post text myself and corrected any I disagreed with before merging it into `labels.csv`. Those rows are marked `ai-assisted` in the note column.
+
 
 **Moment 2**
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+- *What I asked for:* Help debugging `parse_posts.py`, which kept failing with `SyntaxError: '{' was never closed` after I pasted the label dict into VS Code.
+- *What came back:*  Confirmation the dict's syntax was valid on Claude's end (ruling out a bad dict), then a PowerShell one-liner that decoded a base64-encoded copy of the script straight to disk.
+- *What I changed:* Used that approach instead of re-pasting into the editor, which is what actually fixed it — the editor's auto-bracket-matching had been corrupting the paste.
 
 **Pre-labelling disclosure:**
 
