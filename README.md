@@ -54,35 +54,37 @@
      The decision rule is worth a point on its own and it's the thing most
      people leave out. Every taxonomy has a hardest boundary. Name yours. -->
 
-### `label_one`
+### `general_question`
 
-**Definition:**
+**Definition:** Asks a question whose answer doesn't depend on the poster's numbers.
 
-**Example 1:**
->
 
-**Example 2:**
->
+**Example 1:**https://www.reddit.com/r/personalfinance/
+>My question is what now?
 
-### `label_two`
+**Example 2:** https://www.reddit.com/r/personalfinance/comments/1wbkqbi/received_an_inheritance_and_husband_is_getting/
+>is there anything else we need to talk about or plan?
 
-**Definition:**
+### `Specific_question`
 
-**Example 1:**
->
+**Definition:** Asks a question and includes the posters own numbers or named accounts. 
 
-**Example 2:**
->
+**Example 1:** https://www.reddit.com/r/personalfinance/comments/1x516fj/how_much_to_save_in_hysa_vs_invest/
+> I have about 46k in investments and 14k in HYSA.
+
+**Example 2:**https://www.reddit.com/r/personalfinance/comments/1mduljg/needing_general_money_advice/
+>I'm 2000$ (one card) in credit card debt, totally maxed out.
 
 ### The hardest boundary
 
-**Which two labels:**
+**Which two labels:** `specific_question` and `general_question`, when a post asks a question that has an underlying general topic but includes the poster's own numbers.
+
 
 **The decision rule I used every time:**
 <!-- e.g. "If the post names a specific checkable fact, it's `analysis`, even
      if the tone is heated." -->
 
-
+If the post asks a question, check for the poster's own numbers. With numbers, it's `specific_question`. Without, it's `general_question`. No question at all means `venting`.
 
 ---
 
