@@ -65,7 +65,7 @@ This project sorts posts from r/personalfinance into three categories: `specific
 **Example 2:** https://www.reddit.com/r/personalfinance/comments/1wbkqbi/received_an_inheritance_and_husband_is_getting/
 >is there anything else we need to talk about or plan?
 
-### `Specific_question`
+### `specific_question`
 
 **Definition:** Asks a question and includes the posters own numbers or named accounts. 
 
