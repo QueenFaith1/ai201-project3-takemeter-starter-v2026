@@ -2,9 +2,7 @@
 #
 # Copy these from your README so the baseline is judged on exactly the
 # definitions you wrote. baseline.py reads this file.
-#
-# Delete the examples below and put yours in.
 
-analysis: makes an argument backed by a specific, checkable fact
-hot_take: a confident claim with no support offered
-reaction: an immediate response to something that just happened
+specific_question: Asks a question and includes the poster's own numbers or named accounts.
+general_question: Asks a question whose answer doesn't depend on the poster's numbers.
+venting: Describes feelings about money and doesn't ask a question.
