@@ -42,7 +42,7 @@
 <!-- Your community, and what your classifier sorts posts into. Three or four
      sentences. -->
 
-
+This project sorts posts from r/personalfinance into three categories: `specific_question` (the poster needs a tailored answer based on their own numbers or accounts), `general_question` (a real question that doesn't depend on the poster's specific figures, process, legality, or "is this normal" questions), and `venting` (no real question, just a personal story, PSA, or emotional post). A classifier like this could help a subreddit's moderators or a bot route posts appropriately,  flagging specific_question posts for financially literate volunteers who can do the math, routing general_question posts toward existing wiki resources, and leaving venting posts alone rather than flooding them with unsolicited advice.
 
 ---
 
@@ -141,21 +141,19 @@ No label exceeds 70%.
 3. **"I'm an heir to a broke aunt"** — a long, detailed personal story (dying aunt, ~$500/month mortgage, unknown credit card debt) that lands on a general legal question: *"do heirs inherit credit card debt?"* I labeled it `general_question` since the answer doesn't depend on her specific numbers, though her numbers are clearly what's driving the question.
 
 
-## The Training Run
-
 <!-- Your starting model, your settings, and anything you changed and why. -->
 
-**Base model:**
+## The Training Run
 
-**Settings:** <!-- epochs, learning rate, batch size, seed -->
+**Base model:** distilbert-base-uncased
 
-**Anything I changed from the defaults, and why:**
+**Settings:** 3 epochs, learning rate 2e-5, batch size 16, max_length 128, seed 42
 
-**Split sizes:** <!-- train / val / test, and per-label counts in the test
-split. If a label had fewer than about 8 in test, say so — it explains a lot
-of next unit's variance. -->
+**Anything I changed from the defaults, and why:** Nothing — used the defaults as given.
 
-Device: CPU, torch 2.14.1+cpu
+**Split sizes:** train 148 / val 32 / test 32. `venting` has only 3 examples in the test split (vs. 14-15 for the other two labels), well under the ~8 needed for a stable metric — its F1 is expected to be noisy across seeds.
+
+**Device:** CPU, torch 2.14.1+cpu. Recorded in `results.json`.
 
 ---
 
@@ -174,7 +172,7 @@ Device: CPU, torch 2.14.1+cpu
 - *What came back:*  A Python dict mapping row index → label, formatted to drop directly into my `parse_posts.py`. 
 
 - *What I changed:* I read every AI-labeled row against the original post text myself and corrected any I disagreed with before merging it into `labels.csv`. Those rows are marked `ai-assisted` in the note column.
-
+vice: CPU, torch 2.14.1+cpu
 
 **Moment 2**
 

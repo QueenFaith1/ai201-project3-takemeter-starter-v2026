@@ -49,64 +49,52 @@ whether you hit them:
   three.** A target of 0.65 against results of 0.71, 0.62, 0.68 is a **miss**.
   Pick with that in mind — it is stricter than it first sounds.
 
----
-
 ## 1.
-
 
 Overall accuracy on the test split is at least 0.60.
 
-
 **Why this target:**
 
- With three labels, a random guesser gets about 33%. I want the model to clearly beat chance without setting a bar my small dataset can't reliably hit.
+My largest label, general_question, is 48% of labels.csv (102 of 212 rows), so a model that always guessed it would score about 0.48 without learning anything. I set 0.60 to require real signal beyond that majority class baseline, while staying realistic given I only have 148 training examples.
+
 ---
 
 ## 2.
 
-
- Every label's F1 on the test split is at least 0.50.
-
+Every label's F1 on the test split is at least 0.50.
 
 **Why this target:**
 
-My smallest label has about 40 examples, so about 6 land in the test split. A per-label F1 computed on that few examples swings a lot between seeds, so I set a looser bar than my overall target.
-
-
----
+My smallest label has about 40 examples, so about 6 land in the test split. A per label F1 computed on that few examples swings a lot between seeds, so I set a looser bar than my overall target.
 
 ## 3.
 
-
 The largest label is at most 70% of the rows in `labels.csv`.
-
 
 **Why this target:**
 
-A file dominated by one label trains a model that mostly guesses that label. The assignment sets 70% as the cap, and with three labels it still leaves the other two a real share.
+general_question is already my largest label at 48% of 212 rows. Staying well under the 70% cap keeps specific_question (42%) and especially venting 10%, only 21 total rows learnable rather than drowned out by one dominant label.
 
 ---
 
 ## 4.
 
-
-
- On the 20 posts I labeled cold, my second pass agrees with my first on at least 80% of labels.
+On the 20 posts I labeled cold, my second pass agrees with my first on at least 80% of labels.
 
 **Why this target:**
 
-Labeling is only as reliable as the labeler, and I'm the only labeler. 80% allows for a few hard calls while still showing my definitions hold up.
+My decision rule depends on whether a question includes the poster's own numbers, and that line isn't always clean, a post can mention a dollar figure that isn't really their own financial situation. 80% leaves room for 3-4 of those boundary calls to land differently on a second pass without signaling that my definitions don't actually hold up.
 
 ---
 
 ## 5.
 
-
 Each label has at least 6 examples in the test split.
 
-
 **Why this target:**
-With 6 or more examples, one wrong prediction moves a label's score less than 15 points. Below that, the F1 scores are too noisy to read.
+
+With 212 rows split 70/15/15, my smallest label (venting, 21 total rows) was always going to have the fewest test examples. Six is roughly the point where one misclassification moves F1 by about 15 points instead of 30+ — below that, a per label score isn't really measuring anything reliable.
+
 
 
 ---
