@@ -10,7 +10,7 @@ If I pay those off, I would then just pay money back into the trust each month.
 
 Is this a good idea? My spending is under control, so I don’t anticipate running up any more credit cards.
 
-Thank you.",venting,cold
+Thank you.",specific_question,cold; relabeled: venting->specific_question (M5 boundary fix)
 "Will have to drop to part-time work in six months to finish grad school. What should I be doing now?
 
 I'm in grad school to get my master's in Speech Pathology, and we have to do clinical rotations that will have to be during daytime hours, so I can't continue working my current job. I am considering working the night shift full time, but I'm a little worried about if I'm going to be able to handle it so I'm trying to hold off.
@@ -23,7 +23,7 @@ Is there anything I'm missing? Things I should do now while I've got a salary? I
 I’m a 37-year-old man with around ¥80,000 in savings. I earn a little over ¥6,000 a month, but my total monthly expenses are around ¥7,000. On top of that, I have to pay ¥4,000 a month on my mortgage.    
 So I’m spending more than I earn every month, and my savings are slowly running out.    
 I’m wondering if there’s a sensible way to invest some of my ¥80,000 and make my money grow, or if I should focus on cutting expenses and getting my finances back on track first.    
-If you were in my shoes, what would you do?",venting,cold
+If you were in my shoes, what would you do?",specific_question,cold; relabeled: venting->specific_question (M5 boundary fix)
 "22 year old married couple
 
 Partner and I have a take home of $5600. Have $14k in a money market that we use as our emergency fund (6 months of expenses), $7,750 in a Roth IRA and about $5500 in cash. We have fixed expenses of ≈$2200 and invest about $1150. We do spend about $750 a month on going out and end up saving the rest. Sometimes months our tracking is off but we average $1,500 left over at the end of the month. Wife is more of a spender than I am, says we can afford to spend more but not too keen on the idea but I just want to gauge how we are doing from an external perspective, if it’s smart to spend a little more or maybe invest a little heavier  
@@ -54,10 +54,10 @@ Where would be the best place to get advice for a new checking account and HYSA 
 
 I am sorry if I missed something, my brain feels so scrambled figuring everything out. I will do my best to reply for any other specifics as I know it helps you guys give the best answers. 
 
-Thank you for those who are able to help and give some advice. It is greatly appreciated.",venting,cold
+Thank you for those who are able to help and give some advice. It is greatly appreciated.",specific_question,cold; relabeled: venting->specific_question (M5 boundary fix)
 "Retirement and inflation question
 
-Not sure if this is the correct place to post this question. If a person has 1M at retirement age, I know that the recommended withdrawal rate is 4% so 40,000 a year. If my current cost of living is 40,000 a year, how do I plan for what it will be when I retire in 35 ish years with inflation? I was thinking I would need 1 million to retire, but is it actually a lot more because 40,000 won't be enough at that time?",venting,cold
+Not sure if this is the correct place to post this question. If a person has 1M at retirement age, I know that the recommended withdrawal rate is 4% so 40,000 a year. If my current cost of living is 40,000 a year, how do I plan for what it will be when I retire in 35 ish years with inflation? I was thinking I would need 1 million to retire, but is it actually a lot more because 40,000 won't be enough at that time?",specific_question,cold; relabeled: venting->specific_question (M5 boundary fix)
 "Young couple finance advice?
 
 Hey everyone, me and my girlfriend of 1 year are looking to open up a joint checking/savings and HYSA account for extra spending and a house fund.
@@ -204,7 +204,7 @@ Its 27k but close enough ig",general_question,cold
 "I am 26 and have 1k to my name
 
 I have what I would consider a great job and get around 3k a month. I had so many debts to my name but finally only have 1.5k to pay.   
-How can I reliably turn everything around once I get clear of this debt? I don’t ever want to be in a situation like this again",venting,cold
+How can I reliably turn everything around once I get clear of this debt? I don’t ever want to be in a situation like this again",specific_question,cold; relabeled: venting->specific_question (M5 boundary fix)
 "Meeting transaction requirement for 6%. Would you do it and how?
 
 Local credit union hysa is offering 6% on up to $25k which seems like a great deal but they are requiring 15 transactions/mo. 
