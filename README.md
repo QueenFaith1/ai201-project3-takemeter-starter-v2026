@@ -245,18 +245,23 @@ failing to.
 <!-- ⚠️ TYPED AS A MARKDOWN TABLE. The notebook prints one ready to paste.
      An image of a matrix earns nothing. -->
 
-| true \ predicted |  |  |  |
-|---|---|---|---|
-| **** |  |  |  |
-| **** |  |  |  |
-| **** |  |  |  |
-
-**My biggest off-diagonal number, and what it means:**
 <!-- Not "the model made mistakes" — WHICH boundary it didn't learn, and which
      direction. "7 real analysis posts were called hot_take and only 3 went the
      other way" is a direction, not just an error rate. -->
 
 
+| true \ predicted | specific_question | general_question | venting |
+|---|---|---|---|
+| **specific_question** | 3 | 11 | 0 |
+| **general_question** | 0 | 15 | 0 |
+| **venting** | 0 | 3 | 0 |
+
+**My biggest off-diagonal number, and what it means:**
+
+The model misclassified 11 of 14 real `specific_question` posts as `general_question`,
+while making zero errors in the opposite direction — it's defaulting to
+`general_question` whenever a post is ambiguous, rather than confusing the
+two labels symmetrically.
 
 ---
 
