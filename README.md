@@ -232,23 +232,17 @@ failing to.
 <!-- Five criteria across three seeds. The notebook's section 6 prints the
      spread table; the Target and Verdict columns are yours. -->
 
+     ## Run Log — Before
+
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| 1. Overall accuracy | ≥ 0.60 | 0.562 | 0.500 | 0.469 | MISSED |
+| 2. Every label F1 | ≥ 0.50 | general_question 0.682, specific_question 0.353, venting 0.000 | macro F1 only: 0.262 | macro F1 only: 0.213 | MISSED |
+| 3. Largest label share | ≤ 70% of labels.csv | 48% (dataset-level, same all seeds) | — | — | MET |
+| 4. Cold-relabel agreement | ≥ 80% | 30% (6/20) | — | — | MISSED |
+| 5. Each label ≥ 6 in test split | ≥ 6 | general_question 15, specific_question 14, venting 3 | not broken out per seed | not broken out per seed | MISSED |
 
 ### Confusion matrix
-
-<!-- ⚠️ TYPED AS A MARKDOWN TABLE. The notebook prints one ready to paste.
-     An image of a matrix earns nothing. -->
-
-<!-- Not "the model made mistakes" — WHICH boundary it didn't learn, and which
-     direction. "7 real analysis posts were called hot_take and only 3 went the
-     other way" is a direction, not just an error rate. -->
-
 
 | true \ predicted | specific_question | general_question | venting |
 |---|---|---|---|
@@ -267,29 +261,19 @@ two labels symmetrically.
 
 ## Verdicts and Diagnoses
 
-<!-- MET or MISSED against LAST UNIT's target. The target has to hold across
-     all three seeds, not turn up sometimes. -->
-
 | # | Criterion | Target | Verdict | How I decided |
 |---|---|---|---|---|
-| 1 |  |  |  |  |
-| 2 |  |  |  |  |
-| 3 |  |  |  |  |
-| 4 |  |  |  |  |
-| 5 |  |  |  |  |
+| 1 | Overall accuracy | ≥ 0.60 | MISSED | All three seeds (0.562, 0.500, 0.469) fell short; target must hold across all three. |
+| 2 | Every label F1 | ≥ 0.50 | MISSED | On seed 42, `specific_question` (0.353) and `venting` (0.000) both fall well short. |
+| 3 | Largest label ≤ 70% | ≤ 70% | MET | `general_question` is 48% of labels.csv. |
+| 4 | Cold-relabel agreement | ≥ 80% | MISSED | Relabeled my 20 cold posts blind; agreed with myself on only 6/20 (30%). |
+| 5 | Each label ≥ 6 in test split | ≥ 6 | MISSED | `venting` has only 3 in the one split I measured (10% of 212 rows total). |
 
 **Diagnoses**
 
-<!-- For each miss: the cause, and how you know. The four common causes are:
-     too few examples for a label, a boundary you applied inconsistently, a
-     genuinely hard label pair, and a task the model can't reach from this
-     much data.
+My own agreement report is the clearest evidence here, and it points at a labeling problem, not just a model limitation. When I relabeled my original 20 cold posts blind, I agreed with myself on only 30% — and every post I originally called `venting` (5 of 5), I relabeled as `general_question` or `specific_question` the second time. That's the same direction the model's confusion matrix shows: it also collapses toward `general_question`, especially away from `specific_question`.
 
-     ⚠️ Use your agreement report as evidence. It is the only instrument you
-     have that can tell a LABELLING problem from a MODEL problem, and this
-     section is graded on whether you used it that way. -->
-
-
+So criteria 1 and 2 (accuracy and per-label F1) are diagnosed as a **boundary applied inconsistently**: the model can't learn a clean `venting` vs. `general_question` line from training data where I wasn't drawing that line the same way twice myself. Criterion 5 (venting's test coverage) is a separate, compounding cause — **too few examples for a label** (only 21 of 212 rows), which makes the already-inconsistent boundary even harder for the model to learn reliably.
 
 ---
 
