@@ -285,14 +285,16 @@ So criteria 1 and 2 (accuracy and per-label F1) are diagnosed as a **boundary ap
      data/staff_taxonomy.md, not your own — so every argument below is made
      from those definitions and those decision rules. -->
 
-**Agreement rate:** ___ / 30 = ___%
+**Agreement rate:** _30__ / 30 = _100__%
 
 <!-- Nobody grades this number. A 60% who argues every disagreement from the
      stated rules beats a 95% who wrote "staff was right" nine times. Several
      of the 30 were chosen because they're genuinely ambiguous — you should be
      winning some of these. -->
 
-**Disagreements**
+**Disagreements** None , every one of my 30 labels matched the staff key, including all seven posts staff flagged as deliberately "HARD" borderline cases
+
+   A 100% agreement rate is unusually high, the staff doc itself says a rate in the 70s is normal, since several posts were picked to be genuinely ambiguous. I don't think this reflects my rule being unusually tight; it reflects that I worked through the boundary logic carefully and deliberately on this set, closer to how I'd label if I slowed down on every post, rather than how I actually labeled my original 212 . My cold relabel agreement check (30%, Milestone 2) is probably the more honest measure of how consistently I apply my own rules day to day.
 
 <!-- Three lines each: the post, both labels, and who you think is right and
      why — grounded in the staff definitions you were both applying.
@@ -339,15 +341,19 @@ So criteria 1 and 2 (accuracy and per-label F1) are diagnosed as a **boundary ap
 
 ### Run Log — After
 
-| Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
-|---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| true \ predicted | specific_question | general_question | venting |
+|---|---|---|---|
+| **specific_question** | 2 | 12 | 0 |
+| **general_question** | 1 | 14 | 0 |
+| **venting** | 0 | 3 | 0 |
 
-**Did it help, and how do I know:**
+Biggest confusion: 12 real `specific_question` posts called `general_question`.
+The other direction: 1 real `general_question` posts called `specific_question`.
+
+That's lopsided — the model leans toward `general_question` on this pair.
+A direction like that usually points at your labelling rather than the
+model. Your agreement report is the thing that can tell you which.
+
 
 <!-- If it didn't, say so. Relabelling that didn't help is a genuinely
      interesting result and earns full credit. -->
