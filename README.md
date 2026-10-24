@@ -180,7 +180,14 @@ vice: CPU, torch 2.14.1+cpu
 - *What came back:*  Confirmation the dict's syntax was valid on Claude's end (ruling out a bad dict), then a PowerShell one-liner that decoded a base64-encoded copy of the script straight to disk.
 - *What I changed:* Used that approach instead of re-pasting into the editor, which is what actually fixed it — the editor's auto-bracket-matching had been corrupting the paste.
 
-**Pre-labelling disclosure:**
+
+**Moment 3**
+
+- *What I asked for:* Help diagnosing why I missed several Milestone 4 criteria, using my confusion matrix and cold-relabel results together.
+- *What came back:* The observation that 100% of my original `venting` labels flipped to another label on my blind relabel, and that the model's confusion matrix showed the exact same lean toward `general_question`  pointing at a labeling consistency problem rather than a model limitation, and specifically naming `venting` as the boundary to fix for Milestone 5.
+- *What I changed:* Used that diagnosis to pick one targeted fix (relabeling 5 ambiguous `venting` posts) instead of guessing, and reviewed each flagged post against my own rule myself before applying any change. 
+
+**Pre-labelling disclosure:** I hand-labeled my first 20 posts cold. For the remaining 192 posts, I gave Claude my label definitions and decision rule, had it produce a first pass label for each, then read every single AI labeled row against the original post text myself and corrected any I disagreed with before committing. Those rows are marked `ai assisted` in the `note` column of `labels.csv`.
 
 <!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
 
@@ -309,35 +316,14 @@ So criteria 1 and 2 (accuracy and per-label F1) are diagnosed as a **boundary ap
      written rule two different ways on 30 posts, that is direct evidence about
      what you did across your own 200. -->
 
-**1.**
-> *The post:*
->
-> *Staff said / I said:*
->
-> *My call, and why:*
->
-> *Which pile:*
-
-**2.**
-> *The post:*
->
-> *Staff said / I said:*
->
-> *My call, and why:*
->
-> *Which pile:*
-
-**What the pattern in my disagreements tells me:**
-
-
-
----
 
 ## The Improvement
 
-**What I changed:**
+**What I changed:** Relabeled 5 of my 21 `venting`-tagged posts to `specific_question`, using a stricter, more literal reading of my own rule: does the post contain a genuine first-person question (not a rhetorical one embedded in a story/PSA) with the poster's own numbers attached? All 5 flipped posts had an explicit question like "Is this a good idea?" or "What would you do?" plus specific personal figures, which my original pass had mislabeled as `venting` despite them clearly asking something.
 
-**Which diagnosis pointed at it:**
+
+**Which diagnosis pointed at it:** My Milestone 4 diagnosis — 100% of my original `venting` labels flipped on a blind relabel, and the model's own confusion matrix showed the same collapse toward `general_question`. That's the strongest, most specific evidence I had, and it named `venting` as the exact boundary to fix.
+
 
 ### Run Log — After
 
@@ -372,7 +358,17 @@ model. Your agreement report is the thing that can tell you which.
 learned:**
 <!-- Two sentences. Your confusion matrix is the evidence. -->
 
+**Criterion 1 (overall accuracy ≥ 0.60):** Still missed, 0.500-0.594 across seeds. I'd need meaningfully more training data, 148 training examples is thin for a 3 way distinction this subtle.
 
+**Criterion 2 (every label F1 ≥ 0.50):** `venting` is still at 0.000 F1. I'd add 20-30 more `venting` examples specifically (it's my thinnest label by far, 16 rows now) rather than relabeling existing ones again, Milestone 5 taught me that moving 5 rows around isn't enough signal for the model to learn from. 
+
+**Criterion 4 (cold-relabel agreement ≥ 80%):** Still 30%, untouched since Milestone 2, since retraining doesn't fix my own labeling consistency. I'd rewrite my `venting` definition to be more mechanically checkable (closer to "ends with no genuine first-person question" rather than "describes feelings"), then redo the cold relabel check to see if a tighter rule actually produces more consistent results. Didn't get to this because I spent my remaining time on the model side fix instead.
+
+**Criterion 5 (each label ≥ 6 in test split):** `venting` still has only 3 in the test split. Same fix as criterion 2  more raw `venting` examples, which I didn't have time to collect and label today.
+
+**The gap between what I meant my labels to capture and what the model learned:**
+
+I meant `venting` to capture genuine emotional/story posts with no real question, and the `specific_question`/`general_question` split to track whether the poster's own numbers were doing real work in their question. What the model actually learned, based on my confusion matrix, is closer to a majority-class shortcut: default to `general_question` almost always, and never predict `venting` at all , it never learned a `venting` signal distinct from noise, because 16-21 examples wasn't enough to outweigh a 48%-general_question dataset.
 
 <!-- ═════════════════════════════════════════════════════════════════════
 
