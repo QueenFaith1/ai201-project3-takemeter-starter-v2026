@@ -194,22 +194,36 @@ vice: CPU, torch 2.14.1+cpu
 <!-- Both models on the same posts. `python baseline.py --trained results.json`
      prints this table for you. -->
 
+
 | Measure | Baseline | Trained | Difference |
 |---|---|---|---|
-| Overall accuracy |  |  |  |
-| Macro F1 |  |  |  |
-| F1 — `label_one` |  |  |  |
-| F1 — `label_two` |  |  |  |
+| Overall accuracy | 0.469 | 0.562 | +0.094 |
+| Macro F1 | 0.276 | 0.345 | +0.069 |
+| F1 — `general_question` | 0.222 | 0.682 | +0.460 |
+| F1 — `specific_question` | 0.605 | 0.353 | -0.252 |
+| F1 — `venting` | 0.000 | 0.000 | +0.000 |
+
 
 **What I predicted before I looked:**
 <!-- Milestone 1 asks you to write this BEFORE seeing the trained numbers. A
      prediction made afterwards isn't one. -->
-
+I expected the trained model to beat the baseline
+most on `venting` (baseline F1 = 0.000) and `general_question` (baseline F1 =
+0.222), since both show the general model struggling without task-specific
+training.
 **What the gap actually means:**
 <!-- If the baseline matched your trained model, your fine-tuning added
      nothing — and that is a real finding, not a failure. Say it plainly. -->
 
-
+Fine-tuning added real value, but unevenly. Overall accuracy and macro F1 moved
+only modestly (+0.094, +0.069) because the gains on `general_question` were
+offset by a loss on `specific_question` — the one label the untrained model
+already handled well. That's not "fine-tuning added nothing," but it's also not
+a clean win across the board: training on my data taught the model
+`general_question` at the cost of some of what the baseline already knew
+about `specific_question`. `venting` is inconclusive either way — n=3 in the
+test split is too small to credit the model with learning it or blame it for
+failing to.
 
 ---
 
